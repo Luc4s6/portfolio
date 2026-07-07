@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Ortiz | Desarrollador de Software & Analista de Datos</title>
+    <!-- Meta Descriptions for SEO -->
+    <meta name="description"
+        content="Portafolio profesional de Lucas Ortiz. Estudiante de Ingeniería en Sistemas de Información especializado en Desarrollo Web Full-Stack, Scripting con Python/GAS, Data Architecture, SQL y Business Intelligence.">
+    <meta name="keywords"
+        content="Lucas Ortiz, Portafolio, Desarrollador de Software, Analista de Datos, BI, Power BI, SQL, Python, Vue.js, Sistemas, Argentina, Córdoba">
+    <meta name="author" content="Lucas Ortiz">
+
+    <!-- Canonical URL (actualizar al dominio final) -->
+    <link rel="canonical" href="https://lucasortiz.dev/">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lucas Ortiz — Desarrollador de Software & Analista de Datos">
+    <meta property="og:description"
+        content="Portafolio profesional. Desarrollo Web Full-Stack, Scripting, SQL, Business Intelligence.">
+    <meta property="og:url" content="https://lucasortiz.dev/">
+    <meta property="og:locale" content="es_AR">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Lucas Ortiz — Desarrollador & Analista de Datos">
+    <meta name="twitter:description" content="Desarrollo Web, SQL, Python, Power BI. Portafolio profesional.">
+
+    <!-- Favicon: Inline SVG con iniciales LO -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2309090b'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='14' fill='white'%3ELO%3C/text%3E%3C/svg%3E">
+
+    <!-- Google Fonts: Unified Clean Sans-serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Vue.js 3 Production Build (fixed version) -->
+    <script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
+</head>
+
+<body>
+    <div id="app" :class="['mode-' + currentMode]" v-cloak>
+
+        <!-- Skip Navigation (Accessibility) -->
+        <a href="#about" class="skip-nav">Saltar al contenido principal</a>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-overlay" :class="{ active: isMobileMenuOpen }" @click="isMobileMenuOpen = false"></div>
+
+        <!-- Navigation Bar -->
+        <header class="navbar" :class="{ scrolled: isScrolled }">
+            <div class="nav-container">
+                <a href="#" class="logo">
+                    <span>LUCAS ORTIZ</span>
+                </a>
+
+                <nav class="nav-menu" :class="{ active: isMobileMenuOpen }">
+                    <ul>
+                        <li><a href="#about" class="nav-link" @click="isMobileMenuOpen = false">Sobre Mí</a></li>
+                        <li><a href="#skills" class="nav-link" @click="isMobileMenuOpen = false">Habilidades</a></li>
+                        <li><a href="#projects" class="nav-link" @click="isMobileMenuOpen = false">Casos de Éxito</a>
+                        </li>
+                        <li><a href="#experience" class="nav-link" @click="isMobileMenuOpen = false">Trayectoria</a>
+                        </li>
+                        <li><a href="#contact" class="nav-link btn-contact"
+                                @click="isMobileMenuOpen = false">Contacto</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="nav-toggle" :class="{ active: isMobileMenuOpen }"
+                    @click="isMobileMenuOpen = !isMobileMenuOpen" aria-label="Abrir menú">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+
+            <!-- Hero Section -->
+            <section class="hero" id="hero">
+                <div class="hero-container reveal-element">
+                    <div class="hero-badge">
+                        <span class="badge-dot"></span>
+                        <span class="badge-text">{{ badgeText }}</span>
+                    </div>
+
+                    <h1 class="hero-title">Lucas Ortiz</h1>
+
+                    <!-- Clean minimal sub-selector tabs -->
+                    <div class="profile-mode-selector" role="tablist" aria-label="Filtro de perfil">
+                        <button role="tab" :aria-selected="currentMode === 'hybrid'" class="mode-tab-btn"
+                            :class="{ active: currentMode === 'hybrid' }" @click="setMode('hybrid')">Híbrido</button>
+                        <button role="tab" :aria-selected="currentMode === 'dev'" class="mode-tab-btn"
+                            :class="{ active: currentMode === 'dev' }" @click="setMode('dev')">Desarrollador</button>
+                        <button role="tab" :aria-selected="currentMode === 'data'" class="mode-tab-btn"
+                            :class="{ active: currentMode === 'data' }" @click="setMode('data')">Analista de
+                            Datos</button>
+                    </div>
+
+                    <p class="hero-description">{{ descriptionText }}</p>
+
+                    <div class="hero-ctas">
+                        <a href="#projects" class="btn btn-primary">Ver Proyectos</a>
+                        <a href="#contact" class="btn btn-secondary">Contactar</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Me / Profile Section -->
+            <section class="about section-padding" id="about">
+                <div class="container">
+                    <div class="section-header reveal-element">
+                        <span class="subtitle">Mi Enfoque</span>
+                        <h2 class="title">Sobre Mí</h2>
+                        <div class="title-underline"></div>
+                    </div>
+
+                    <div class="about-grid reveal-element">
+                        <div class="about-image-wrapper">
+                            <div class="about-image-card">
+                                <!-- Clean Black & White Initials Card -->
+                                <div class="profile-classic-card">
+                                    <div class="card-border-line"></div>
+                                    <div class="card-initials">LO</div>
+                                    <div class="card-label">Sistemas &bull; UTN</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="about-info">
+                            <h3 class="about-info-title">{{ aboutInfoTitle }}</h3>
+                            <p class="about-text">{{ aboutText }}</p>
+
+                            <div class="about-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Ubicación:</span>
+                                    <span class="detail-value">Córdoba, Argentina</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Estudios:</span>
+                                    <span class="detail-value">Ing. en Sistemas (UTN)</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Enfoque:</span>
+                                    <span class="detail-value">{{ focusDetail }}</span>
+                                </div>
+                            </div>
+
+                            <div class="about-stats">
+                                <div class="stat-card" v-if="currentMode === 'hybrid' || currentMode === 'dev'">
+                                    <span class="stat-num">Vue.js</span>
+                                    <span class="stat-label">Desarrollo Web</span>
+                                </div>
+                                <div class="stat-card" v-if="currentMode === 'dev'">
+                                    <span class="stat-num">Python</span>
+                                    <span class="stat-label">Scripting & APIs</span>
+                                </div>
+                                <div class="stat-card" v-if="currentMode === 'hybrid' || currentMode === 'data'">
+                                    <span class="stat-num">SQL / PL</span>
+                                    <span class="stat-label">Bases de Datos</span>
+                                </div>
+                                <div class="stat-card" v-if="currentMode === 'hybrid' || currentMode === 'data'">
+                                    <span class="stat-num">Power BI</span>
+                                    <span class="stat-label">Analítica & KPIs</span>
+                                </div>
+                            </div>
+
+                            <!-- Social Links -->
+                            <div class="about-social" style="display: flex; gap: 12px; margin-top: 16px;">
+                                <a href="https://www.linkedin.com/in/lucas-ortiz-data/" target="_blank"
+                                    class="btn btn-secondary" style="font-size: 0.8rem; padding: 8px 16px;">
+                                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                                </a>
+                                <a href="mailto:lucasortiz0602@gmail.com" class="btn btn-secondary"
+                                    style="font-size: 0.8rem; padding: 8px 16px;">
+                                    <i class="fa-solid fa-envelope"></i> Email
+                                </a>
+                                <a href="https://api.whatsapp.com/send?phone=5493516078824&text=Hola%20Lucas,%20vi%20tu%20portafolio..."
+                                    target="_blank" class="btn btn-secondary"
+                                    style="font-size: 0.8rem; padding: 8px 16px;">
+                                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Skills Section -->
+            <section class="skills section-padding" id="skills">
+                <div class="container">
+                    <div class="section-header reveal-element">
+                        <span class="subtitle">Competencias</span>
+                        <h2 class="title">Habilidades</h2>
+                        <div class="title-underline"></div>
+                    </div>
+
+                    <div class="skills-grid">
+                        <!-- Dev Skills Group -->
+                        <div class="skills-category-card skill-dev-highlight reveal-element">
+                            <div class="category-header">
+                                <i class="fa-solid fa-code"></i>
+                                <h3>Desarrollo & Programación</h3>
+                            </div>
+                            <ul class="skills-list">
+                                <li>
+                                    <div class="skill-info">
+                                        <span>Desarrollo Web Full-Stack (JS / Vue.js)</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 88%;"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="skill-info">
+                                        <span>Scripting & Automatización (Python / GAS)</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 92%;"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="skill-info">
+                                        <span>Integración de APIs y Sistemas</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 75%;"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Data Skills Group -->
+                        <div class="skills-category-card skill-data-highlight reveal-element">
+                            <div class="category-header">
+                                <i class="fa-solid fa-chart-pie"></i>
+                                <h3>Datos & Business Intelligence</h3>
+                            </div>
+                            <ul class="skills-list">
+                                <li>
+                                    <div class="skill-info">
+                                        <span>SQL & Arquitectura de Datos (T-SQL, PL/SQL)</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 87%;"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="skill-info">
+                                        <span>Business Intelligence (Power BI / Looker)</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 93%;"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="skill-info">
+                                        <span>Optimización de Métricas & Excel Avanzado</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 78%;"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Live Sandbox / Preview Area -->
+            <section class="sandbox section-padding" id="sandbox">
+                <div class="container">
+                    <div class="section-header reveal-element">
+                        <span class="subtitle">Laboratorio Interactivo</span>
+                        <h2 class="title">{{ sandboxTitle }}</h2>
+                        <div class="title-underline"></div>
+                    </div>
+
+                    <p class="sandbox-intro text-center reveal-element">
+                        {{ sandboxNarrative }}
+                    </p>
+
+                    <div class="sandbox-wrapper reveal-element">
+                        <!-- Contextual Scenario Banner -->
+                        <div class="sandbox-scenario-banner">
+                            <div class="scenario-icon">
+                                <i class="fa-solid" :class="currentMode === 'data' ? 'fa-chart-pie' : 'fa-flask'"></i>
+                            </div>
+                            <div class="scenario-text">
+                                <span class="scenario-label" v-if="currentMode === 'hybrid'">Escenario: Pipeline ETL +
+                                    Monitoreo de KPIs</span>
+                                <span class="scenario-label" v-else-if="currentMode === 'dev'">Escenario: Sincronización
+                                    Automatizada Google Sheets → Oracle DB</span>
+                                <span class="scenario-label" v-else>Escenario: Panel Operativo de Métricas LOB (Claro
+                                    Corporativo)</span>
+                                <span class="scenario-desc">Simulación interactiva basada en un caso real de
+                                    producción</span>
+                            </div>
+                        </div>
+
+                        <!-- Tab Headers -->
+                        <div class="sandbox-tabs">
+                            <button class="sandbox-tab-btn" :class="{ active: sandboxTab === 'console' }"
+                                @click="sandboxTab = 'console'">
+                                <i class="fa-solid fa-terminal"></i> Script de Sincronización (Python)
+                            </button>
+                            <button class="sandbox-tab-btn" :class="{ active: sandboxTab === 'dashboard' }"
+                                @click="sandboxTab = 'dashboard'">
+                                <i class="fa-solid fa-square-poll-vertical"></i> Panel de Control Dinámico (BI)
+                            </button>
+                            <button class="sandbox-tab-btn" :class="{ active: sandboxTab === 'gas' }"
+                                @click="sandboxTab = 'gas'">
+                                <i class="fa-solid fa-code"></i> Google Apps Script (GAS)
+                            </button>
+                        </div>
+
+                        <!-- Tab Contents -->
+                        <div class="sandbox-panes">
+
+                            <!-- Pane 1: Terminal Console / Code View -->
+                            <div class="sandbox-pane" :class="{ active: sandboxTab === 'console' }">
+                                <div class="window-header">
+                                    <div class="window-buttons">
+                                        <span class="btn-dot close"></span>
+                                        <span class="btn-dot minimize"></span>
+                                        <span class="btn-dot maximize"></span>
+                                    </div>
+                                    <div class="window-title">automatizacion_lob.py</div>
+                                    <div class="window-actions">
+                                        <button class="window-action-btn"
+                                            :class="{ active: consoleSubTab === 'terminal' }"
+                                            @click="consoleSubTab = 'terminal'">Terminal</button>
+                                        <button class="window-action-btn" :class="{ active: consoleSubTab === 'code' }"
+                                            @click="consoleSubTab = 'code'">Código Fuente</button>
+                                    </div>
+                                </div>
+
+                                <!-- Subpane A: Terminal -->
+                                <div class="window-body terminal-body" v-show="consoleSubTab === 'terminal'"
+                                    ref="terminalBody">
+                                    <pre><code id="terminal-code"><div v-for="(line, idx) in terminalLines" :key="idx" :style="{ color: getLineColor(line) }" style="margin: 4px 0;">{{ line }}</div></code></pre>
+                                    <div class="terminal-controls">
+                                        <button class="btn btn-sm btn-accent" :disabled="terminalRunning"
+                                            @click="runTerminalSimulation">
+                                            <i class="fa-solid"
+                                                :class="terminalRunning ? 'fa-spinner fa-spin' : 'fa-play'"></i>
+                                            {{ terminalRunning ? 'Ejecutando...' : 'Ejecutar Script' }}
+                                        </button>
+                                        <button class="btn btn-sm btn-outline" :disabled="terminalRunning"
+                                            @click="clearTerminal">Limpiar</button>
+                                    </div>
+                                </div>
+
+                                <!-- Subpane B: Code Source -->
+                                <div class="window-body code-view-body" v-show="consoleSubTab === 'code'">
+                                    <pre class="syntax-highlight"><code><span class="code-comment"># Sincronización Google Sheets -> Oracle Database</span>
+<span class="code-keyword">import</span> os
+<span class="code-keyword">import</span> requests
+<span class="code-keyword">import</span> cx_Oracle
+
+<span class="code-keyword">def</span> <span class="code-function">sync_google_sheets_to_db</span>():
+    sheet_url = os.environ.<span class="code-function">get</span>(<span class="code-string">"SHEET_API_URL"</span>)
+    db_dsn = cx_Oracle.<span class="code-function">makedsn</span>(<span class="code-string">"claro.corp"</span>, <span class="code-number">1521</span>, service_name=<span class="code-string">"PROD_LOB"</span>)
+    
+    <span class="code-comment"># 1. Petición HTTP a la API de GAS</span>
+    response = requests.<span class="code-function">get</span>(sheet_url)
+    data = response.<span class="code-function">json</span>()
+    
+    <span class="code-comment"># 2. Ingesta a Base de Datos relacional</span>
+    conn = cx_Oracle.<span class="code-function">connect</span>(user=<span class="code-string">"l_ortiz"</span>, password=<span class="code-string">"sec_pass"</span>, dsn=db_dsn)
+    cursor = conn.<span class="code-function">cursor</span>()
+    
+    query = <span class="code-string">"INSERT INTO incidents (id, status, details) VALUES (:1, :2, :3)"</span>
+    <span class="code-keyword">for</span> item <span class="code-keyword">in</span> data[<span class="code-string">"incidents"</span>]:
+        cursor.<span class="code-function">execute</span>(query, (item[<span class="code-string">"id"</span>], item[<span class="code-string">"status"</span>], item[<span class="code-string">"details"</span>]))
+        
+    conn.<span class="code-function">commit</span>()
+    cursor.<span class="code-function">close</span>()
+    conn.<span class="code-function">close</span>()
+
+<span class="code-function">sync_google_sheets_to_db</span>()</code></pre>
+                                    <div class="code-controls">
+                                        <button class="btn btn-sm btn-accent" :disabled="copiedCode"
+                                            @click="copySourceCode">
+                                            <i class="fa-solid" :class="copiedCode ? 'fa-check' : 'fa-copy'"></i>
+                                            {{ copiedCode ? '¡Copiado!' : 'Copiar Código' }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pane 2: BI Dashboard -->
+                            <div class="sandbox-pane" :class="{ active: sandboxTab === 'dashboard' }">
+                                <div class="window-header">
+                                    <div class="window-buttons">
+                                        <span class="btn-dot close"></span>
+                                        <span class="btn-dot minimize"></span>
+                                        <span class="btn-dot maximize"></span>
+                                    </div>
+                                    <div class="window-title">Dashboard Operativo - Métricas de Rendimiento</div>
+                                </div>
+                                <div class="window-body dashboard-body">
+                                    <!-- Dynamic filtering tabs -->
+                                    <div class="dashboard-filters">
+                                        <span class="filter-label">Filtrar Canal:</span>
+                                        <button class="filter-btn" :class="{ active: activeFilter === 'all' }"
+                                            @click="setDashboardFilter('all')">Todos</button>
+                                        <button class="filter-btn" :class="{ active: activeFilter === 'api' }"
+                                            @click="setDashboardFilter('api')">API Web</button>
+                                        <button class="filter-btn" :class="{ active: activeFilter === 'gas' }"
+                                            @click="setDashboardFilter('gas')">Integración GAS</button>
+                                    </div>
+
+                                    <div class="dashboard-kpis">
+                                        <div class="kpi-card">
+                                            <span class="kpi-title">Conversión</span>
+                                            <span class="kpi-val">{{ dashboardState.kpis.conv }}</span>
+                                            <span class="kpi-trend"
+                                                :class="dashboardState.trends.conv.includes('+') ? 'up' : 'down'"
+                                                v-html="dashboardState.trends.conv"></span>
+                                        </div>
+                                        <div class="kpi-card">
+                                            <span class="kpi-title">Eficiencia</span>
+                                            <span class="kpi-val">{{ dashboardState.kpis.ef }}</span>
+                                            <span class="kpi-trend"
+                                                :class="dashboardState.trends.ef.includes('+') ? 'up' : 'down'"
+                                                v-html="dashboardState.trends.ef"></span>
+                                        </div>
+                                        <div class="kpi-card">
+                                            <span class="kpi-title">SLA Resoluciones</span>
+                                            <span class="kpi-val">{{ dashboardState.kpis.sla }}</span>
+                                            <span class="kpi-trend"
+                                                :class="dashboardState.trends.sla.includes('+') ? 'up' : 'down'"
+                                                v-html="dashboardState.trends.sla"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="dashboard-charts">
+                                        <div class="chart-container">
+                                            <h4>{{ dashboardState.title }}</h4>
+                                            <div class="bar-chart-sim">
+                                                <svg viewBox="0 0 400 150" class="svg-chart">
+                                                    <g class="grid-lines">
+                                                        <line x1="40" y1="20" x2="380" y2="20" stroke="#1f2128"
+                                                            stroke-dasharray="3,3" />
+                                                        <line x1="40" y1="60" x2="380" y2="60" stroke="#1f2128"
+                                                            stroke-dasharray="3,3" />
+                                                        <line x1="40" y1="100" x2="380" y2="100" stroke="#1f2128"
+                                                            stroke-dasharray="3,3" />
+                                                        <line x1="40" y1="130" x2="380" y2="130" stroke="#2c2e3b" />
+                                                    </g>
+                                                    <g class="bars">
+                                                        <rect v-for="(bar, index) in dashboardState.bars" :key="index"
+                                                            class="bar-rect" :x="65 + index * 60" :y="130 - bar.h"
+                                                            width="30" :height="bar.h" rx="2"
+                                                            fill="url(#barGradient)" />
+
+                                                        <text x="80" y="145" class="chart-text"
+                                                            text-anchor="middle">Lun</text>
+                                                        <text x="140" y="145" class="chart-text"
+                                                            text-anchor="middle">Mar</text>
+                                                        <text x="200" y="145" class="chart-text"
+                                                            text-anchor="middle">Mie</text>
+                                                        <text x="260" y="145" class="chart-text"
+                                                            text-anchor="middle">Jue</text>
+                                                        <text x="320" y="145" class="chart-text"
+                                                            text-anchor="middle">Vie</text>
+                                                    </g>
+
+                                                    <defs>
+                                                        <linearGradient id="barGradient" x1="0%" y1="0%" x2="0%"
+                                                            y2="100%">
+                                                            <stop offset="0%"
+                                                                stop-color="var(--accent-gradient-start)" />
+                                                            <stop offset="100%"
+                                                                stop-color="var(--accent-gradient-end)" />
+                                                        </linearGradient>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="chart-container">
+                                            <h4>Canales Operativos</h4>
+                                            <div class="pie-chart-sim">
+                                                <div class="sim-pie" :style="{ background: dashboardState.pie }">
+                                                    <div class="pie-center"></div>
+                                                </div>
+                                                <div class="pie-legend">
+                                                    <span class="legend-item"
+                                                        :class="{ dimmed: activeFilter !== 'all' && activeFilter !== 'api' }">
+                                                        <span class="legend-color c1"></span> API Web ({{
+                                                        dashboardState.percentages.api }}%)
+                                                    </span>
+                                                    <span class="legend-item"
+                                                        :class="{ dimmed: activeFilter !== 'all' && activeFilter !== 'gas' }">
+                                                        <span class="legend-color c2"></span> Integración GAS ({{
+                                                        dashboardState.percentages.gas }}%)
+                                                    </span>
+                                                    <span class="legend-item"
+                                                        :class="{ dimmed: activeFilter !== 'all' }">
+                                                        <span class="legend-color c3"></span> Tareas Manuales ({{
+                                                        dashboardState.percentages.manual }}%)
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-controls">
+                                        <button class="btn btn-sm btn-accent" :disabled="dashboardUpdating"
+                                            @click="refreshDashboard">
+                                            <i class="fa-solid"
+                                                :class="dashboardUpdating ? 'fa-rotate fa-spin' : 'fa-rotate'"></i>
+                                            {{ dashboardUpdating ? 'Actualizando...' : 'Actualizar Métricas' }}
+                                        </button>
+                                    </div>
+                                </div>
+                             </div>
+
+                             <!-- Pane 3: Google Apps Script (GAS) -->
+                             <div class="sandbox-pane" :class="{ active: sandboxTab === 'gas' }">
+                                 <!-- GAS Script Selector -->
+                                 <div class="gas-sub-tabs">
+                                     <button class="gas-sub-tab" :class="{ active: gasSubTab === 'asistencia' }"
+                                         @click="gasSubTab = 'asistencia'">
+                                         <i class="fa-solid fa-fingerprint"></i> apiDashboard.gs (Control de Acceso)
+                                     </button>
+                                     <button class="gas-sub-tab" :class="{ active: gasSubTab === 'mails' }"
+                                         @click="gasSubTab = 'mails'">
+                                         <i class="fa-solid fa-envelope-open-text"></i> apiMails.gs (Mailing & Triggers)
+                                     </button>
+                                     <button class="gas-sub-tab" :class="{ active: gasSubTab === 'organizador' }"
+                                         @click="gasSubTab = 'organizador'">
+                                         <i class="fa-solid fa-table-list"></i> dataService.js (Cliente RPC)
+                                     </button>
+                                 </div>
+
+                                 <div class="window-header">
+                                     <div class="window-buttons">
+                                         <span class="btn-dot close"></span>
+                                         <span class="btn-dot minimize"></span>
+                                         <span class="btn-dot maximize"></span>
+                                     </div>
+                                     <div class="window-title">{{ activeGasSnippet.filename }}</div>
+                                     <div class="window-actions">
+                                         <button class="window-action-btn"
+                                             :class="{ active: consoleSubTab === 'terminal' }"
+                                             @click="consoleSubTab = 'terminal'">Terminal Simulación</button>
+                                         <button class="window-action-btn" :class="{ active: consoleSubTab === 'code' }"
+                                             @click="consoleSubTab = 'code'">Código Fuente</button>
+                                     </div>
+                                 </div>
+
+                                 <!-- Subpane A: Terminal Simulación -->
+                                 <div class="window-body gas-terminal-body" v-show="consoleSubTab === 'terminal'">
+                                     <pre><code><div v-for="(line, idx) in gasTerminalLines" :key="idx" :style="{ color: getGasLineColor(line) }" style="margin: 4px 0;">{{ line }}</div></code></pre>
+                                     <div class="terminal-controls">
+                                         <button class="btn btn-sm btn-accent" :disabled="gasTerminalRunning"
+                                             @click="runGasSimulation">
+                                             <i class="fa-solid"
+                                                 :class="gasTerminalRunning ? 'fa-spinner fa-spin' : 'fa-play'"></i>
+                                             {{ gasTerminalRunning ? 'Simulando...' : 'Ejecutar Automatización' }}
+                                         </button>
+                                         <button class="btn btn-sm btn-outline" :disabled="gasTerminalRunning"
+                                             @click="clearGasTerminal">Limpiar</button>
+                                     </div>
+                                 </div>
+
+                                 <!-- Subpane B: Código Fuente -->
+                                 <div class="window-body gas-code-body" v-show="consoleSubTab === 'code'">
+                                     <pre class="syntax-highlight"><code>{{ activeGasSnippet.code }}</code></pre>
+                                     <div class="code-controls" style="margin-top: 16px;">
+                                         <button class="btn btn-sm btn-accent" :disabled="copiedCode"
+                                             @click="copySourceCode">
+                                             <i class="fa-solid" :class="copiedCode ? 'fa-check' : 'fa-copy'"></i>
+                                             {{ copiedCode ? '¡Copiado!' : 'Copiar Código' }}
+                                         </button>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Case Studies Section (Private Projects) -->
+            <section class="projects section-padding" id="projects">
+                <div class="container">
+                    <div class="section-header reveal-element">
+                        <span class="subtitle">Casos de Éxito</span>
+                        <h2 class="title">{{ projectsTitle }}</h2>
+                        <div class="title-underline"></div>
+                    </div>
+
+                    <p class="projects-intro text-center reveal-element">
+                        A continuación se detallan los desafíos técnicos, la arquitectura de soluciones e impactos de
+                        negocio de mis proyectos particulares con código reservado.
+                    </p>
+
+                    <div class="projects-grid">
+                        <div v-for="project in filteredProjects" :key="project.id" class="project-card reveal-element">
+                            <div class="project-img-sim">
+                                <i :class="project.icon"></i>
+                                <div class="project-mode-badge" :class="project.category + '-badge'">{{
+                                    project.badgeText }}</div>
+                            </div>
+                            <div class="project-content">
+                                <h3>{{ project.title }}</h3>
+                                <p class="project-short-desc">{{ project.shortDesc }}</p>
+                                <div class="project-tags">
+                                    <span v-for="tag in project.tags" :key="tag">{{ tag }}</span>
+                                </div>
+                                <button class="btn btn-secondary btn-full" @click="openModal(project)">
+                                    Ver Caso de Éxito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Experience & Education (Timeline) -->
+            <section class="experience section-padding" id="experience">
+                <div class="container">
+                    <div class="section-header reveal-element">
+                        <span class="subtitle">Trayectoria</span>
+                        <h2 class="title">Experiencia & Educación</h2>
+                        <div class="title-underline"></div>
+                    </div>
+
+                    <div class="timeline-container">
+                        <div class="timeline-col">
+                            <h3 class="timeline-col-title reveal-element"><i class="fa-solid fa-briefcase"></i>
+                                Experiencia Laboral</h3>
+                            <div class="timeline">
+                                <transition-group name="timeline-fade">
+                                    <div v-for="exp in filteredExperience" :key="exp.id"
+                                        class="timeline-item reveal-element reveal-visible">
+                                        <div class="timeline-marker"></div>
+                                        <div class="timeline-content">
+                                            <span class="timeline-date">{{ exp.date }}</span>
+                                            <h4>{{ exp.title }}</h4>
+                                            <span class="timeline-org">{{ exp.org }}</span>
+                                            <p>{{ exp.desc }}</p>
+                                        </div>
+                                    </div>
+                                </transition-group>
+                            </div>
+                        </div>
+
+                        <div class="timeline-col">
+                            <h3 class="timeline-col-title reveal-element"><i class="fa-solid fa-graduation-cap"></i>
+                                Educación</h3>
+                            <div class="timeline">
+                                <div v-for="edu in education" :key="edu.id" class="timeline-item reveal-element">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-content">
+                                        <span class="timeline-date">{{ edu.date }}</span>
+                                        <h4>{{ edu.title }}</h4>
+                                        <span class="timeline-org">{{ edu.org }}</span>
+                                        <p>{{ edu.desc }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="contact section-padding" id="contact">
+                <div class="container">
+                    <div class="section-header reveal-element">
+                        <span class="subtitle">¿Hablamos?</span>
+                        <h2 class="title">Contacto</h2>
+                        <div class="title-underline"></div>
+                    </div>
+
+                    <div class="contact-grid">
+                        <div class="contact-info-panel reveal-element">
+                            <h3>Información de Contacto</h3>
+                            <p>Escríbeme para consultar sobre propuestas laborales, consultorías de automatización o
+                                desarrollo web.</p>
+
+                            <div class="contact-methods">
+                                <div class="method-item">
+                                    <div class="method-icon"><i class="fa-solid fa-envelope"></i></div>
+                                    <div class="method-detail">
+                                        <span>Email</span>
+                                        <a href="mailto:lucasortiz0602@gmail.com">lucasortiz0602@gmail.com</a>
+                                    </div>
+                                </div>
+
+                                <div class="method-item">
+                                    <div class="method-icon"><i class="fa-solid fa-phone"></i></div>
+                                    <div class="method-detail">
+                                        <span>Llamadas / WhatsApp</span>
+                                        <a href="https://api.whatsapp.com/send?phone=5493516078824&text=Hola%20Lucas,%20vi%20tu%20portafolio..."
+                                            target="_blank">351-607-8824</a>
+                                    </div>
+                                </div>
+
+                                <div class="method-item">
+                                    <div class="method-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="method-detail">
+                                        <span>Ubicación</span>
+                                        <span>Córdoba, Argentina</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cv-download-wrapper">
+                                <h4>Descargar Curriculum Vitae</h4>
+                                <p>Descarga mi CV estructurado para postulaciones en formato PDF.</p>
+                                <!-- NOTA: Agregar el archivo lucas-ortiz-cv.pdf al directorio del proyecto -->
+                                <a href="CV_Lucas_Ortiz_Sistemas.pdf" download="CV_Lucas_Ortiz_Sistemas.pdf"
+                                    class="btn btn-accent btn-cv">
+                                    <i class="fa-solid fa-file-pdf"></i> Descargar CV
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="contact-form-panel reveal-element">
+                            <form @submit.prevent="submitContactForm" class="contact-form">
+                                <div class="form-group">
+                                    <label for="form-name">Nombre Completo</label>
+                                    <input type="text" id="form-name" v-model="formData.name"
+                                        placeholder="Ej. Juan Pérez" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="form-email">Correo Electrónico</label>
+                                    <input type="email" id="form-email" v-model="formData.email"
+                                        placeholder="Ej. juan.perez@email.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="form-subject">Asunto</label>
+                                    <input type="text" id="form-subject" v-model="formData.subject"
+                                        placeholder="Ej. Oportunidad laboral" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="form-message">Mensaje</label>
+                                    <textarea id="form-message" v-model="formData.message" rows="5"
+                                        placeholder="Escribe tu mensaje aquí..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-full">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    Enviar Mensaje
+                                </button>
+
+                                <div class="form-status-msg" :class="formStatus.type" v-if="formStatus.message">
+                                    {{ formStatus.message }}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container footer-content">
+                <p>&copy; 2026 Lucas Ortiz. Desarrollado con Vue.js (CDN) & CSS.</p>
+                <div class="footer-links">
+                    <a href="mailto:lucasortiz0602@gmail.com" aria-label="Mail"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="https://api.whatsapp.com/send?phone=5493516078824" target="_blank" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://www.linkedin.com/in/lucas-ortiz-data/" target="_blank" aria-label="LinkedIn"><i
+                            class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- REUSABLE DYNAMIC MODAL OVERLAY (Controlled reactively by activeProject) -->
+        <div class="modal-overlay" :class="{ active: activeProject !== null }" v-if="activeProject"
+            @click.self="closeModal" role="dialog" aria-modal="true" tabindex="-1" ref="modalContainer">
+            <div class="modal-card">
+                <button class="modal-close" @click="closeModal" aria-label="Cerrar modal">&times;</button>
+                <div class="modal-body">
+                    <span class="modal-badge" :class="activeProject.category + '-badge'">{{ activeProject.badgeText
+                        }}</span>
+                    <h2>{{ activeProject.title }}</h2>
+                    <div class="modal-meta-grid">
+                        <div><strong>Rol:</strong> {{ activeProject.role }}</div>
+                        <div><strong>Contexto:</strong> {{ activeProject.context }}</div>
+                        <div><strong>Tecnologías:</strong> {{ activeProject.techList }}</div>
+                    </div>
+
+                    <div class="modal-details-content">
+                        <h3>El Desafío</h3>
+                        <p>{{ activeProject.challenge }}</p>
+
+                        <h3>La Solución y Arquitectura</h3>
+                        <p>{{ activeProject.solution }}</p>
+
+                        <!-- Dynamic node flow diagram inside Vue -->
+                        <div class="modal-architecture-diagram" v-if="activeProject.diagram">
+                            <h4>{{ activeProject.diagram.title }}</h4>
+                            <div class="diag-container">
+                                <template v-for="(node, idx) in activeProject.diagram.nodes" :key="idx">
+                                    <div class="diag-node" :class="{ highlight: node.highlight }">{{ node.label }}</div>
+                                    <div class="diag-arrow" v-if="idx < activeProject.diagram.nodes.length - 1">
+                                        <i class="fa-solid fa-right-long"></i>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <h3>Impacto & Resultados</h3>
+                        <ul class="modal-bullets">
+                            <li v-for="(bullet, index) in activeProject.bullets" :key="index">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span v-html="bullet"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button class="back-to-top" :class="{ visible: showBackToTop }" @click="scrollToTop" aria-label="Volver arriba">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+
+    </div>
+
+    <!-- JS Files: Vue.js instance script -->
+    <script src="app.js"></script>
+</body>
+
+</html>
